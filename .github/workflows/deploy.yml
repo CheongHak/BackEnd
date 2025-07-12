@@ -43,10 +43,10 @@ jobs:
         with:
           name: build-artifact
           path: |
+            deploy/.env
             build/libs/*.jar
             scripts/**
             appspec.yml
-            .env  
 
   transfer:
     name: Transfer

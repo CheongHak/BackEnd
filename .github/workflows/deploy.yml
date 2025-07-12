@@ -31,7 +31,7 @@ jobs:
 
         # secrets의 env 파일 빌드
       - name: Create .env file from secret
-        run: echo "${{ secrets.ENV_FILE_CONTENTS }}" > .env
+        run: mkdir -p deploy && echo "${{ secrets.ENV_FILE_CONTENTS }}" > deploy/.env
 
       - name: Build with Gradle (skip tests)
         uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee

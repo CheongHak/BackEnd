@@ -1,14 +1,15 @@
 spring:
-  datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+  application:
+    name: tree
 
+  profiles:
+    group:
+      local: "local"
+      dev: "dev"
+
+  #jpa
   jpa:
+    show-sql: true
+    open-in-view: false
     hibernate:
       ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true

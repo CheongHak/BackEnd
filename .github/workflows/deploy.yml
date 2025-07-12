@@ -31,7 +31,7 @@ jobs:
 
         # secrets의 env 파일 빌드
       - name: Create .env file from secret
-        run: mkdir -p deploy && echo "${{ secrets.ENV_FILE_CONTENTS }}" > deploy/.env
+        run: echo "${{ secrets.ENV_FILE_CONTENTS }}" > .env
 
       - name: Build with Gradle (skip tests)
         uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
@@ -43,10 +43,10 @@ jobs:
         with:
           name: build-artifact
           path: |
-            deploy/.env
             build/libs/*.jar
             scripts/**
             appspec.yml
+            .env  
 
   transfer:
     name: Transfer
@@ -71,6 +71,7 @@ jobs:
         run: |
           aws deploy push \
             --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+            --ignore-hidden-files \
             --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
             --source ./deploy
 
